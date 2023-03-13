@@ -1,24 +1,24 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import Modal from '@mui/material/Modal'
-import { Box, SxProps, Theme } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import Modal from '@mui/material/Modal';
+import {Box, SxProps, Theme} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ICustomModalProps {
   /**
    * State which is used to show the modal.
    * @default false
    */
-  isVisible: boolean
+  isVisible: boolean;
   /**
    * Function to be called when the modal is closed.
    * @default () => null
    */
-  onClose: () => void
+  onClose: () => void;
   /**
    * Children of the modal.
    */
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const style: SxProps<Theme> = {
@@ -34,9 +34,9 @@ const style: SxProps<Theme> = {
   border: '1px solid #000',
   borderRadius: 1,
   p: 4,
-}
+};
 
-const CustomModal = ({ isVisible = false, children, onClose = () => null }: ICustomModalProps) => (
+const CustomModal = ({isVisible = false, children, onClose = () => null}: ICustomModalProps) => (
   <div>
     <Modal
       open={isVisible}
@@ -45,12 +45,12 @@ const CustomModal = ({ isVisible = false, children, onClose = () => null }: ICus
       aria-describedby="keep-mounted-modal-description"
     >
       <Box sx={style}>
-        <Box sx={{ width: '100%', height: 50 }}>
+        <Box sx={{width: '100%', height: 30}}>
           <CloseIcon onClick={onClose} />
         </Box>
         {children}
       </Box>
     </Modal>
   </div>
-)
-export default CustomModal
+);
+export default CustomModal;

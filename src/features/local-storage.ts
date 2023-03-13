@@ -1,35 +1,41 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react'
-import { Spell } from './api-types'
+import React from 'react';
+import {Spell} from './api-types';
 
 // Hook which is used to get a list of spells from the localStorage.
 const useFavoritiesLocalStorage = () => {
   // Local state of the localStorage
-  const [state, setState] = React.useState<Spell[]>([])
+  const [state, setState] = React.useState<Spell[]>([]);
 
   // Function to get the list of favorites from the localStorage
   const _getLocalStorage = () => {
-    const innerState = JSON.parse(localStorage.getItem('favorities') || '[]')
-    setState(innerState)
-  }
+    const innerState = JSON.parse(localStorage.getItem('favorities') || '[]');
+    setState(innerState);
+  };
 
   // Funtion to set the list of favorites in the localStorage
   const saveLocalStorage = (newState: Spell[]) => {
-    localStorage.setItem('favorities', JSON.stringify(newState))
-    setState(newState)
-  }
+    localStorage.setItem('favorities', JSON.stringify(newState));
+    setState(newState);
+  };
 
+  const removeLocalStorage = (spellIndex: string) => {
+    const filteredState = state.filter(({index}) => index !== spellIndex);
+    saveLocalStorage(filteredState);
+    setState(filteredState);
+  };
   // UseEffect hook to get the list of favorites from the localStorage
   React.useEffect(() => {
-    _getLocalStorage()
-  }, [])
+    _getLocalStorage();
+  }, []);
 
   // Return the list of favorites from the localStorage
   // And the function to set the list of favorites in the localStorage
   return {
     state,
     saveLocalStorage,
-  }
-}
+    removeLocalStorage,
+  };
+};
 
-export default useFavoritiesLocalStorage
+export default useFavoritiesLocalStorage;

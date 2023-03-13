@@ -1,7 +1,7 @@
 // Query keys for the API Endpoints
-enum QUERY_KEYS {
-  SPELLS = 'spells',
-  SPELL = 'spell',
-}
+const QUERY_KEYS = {
+  SPELLS: 'spells',
+  SPELL: (id: string) => ['spell', id],
+};
 
-export default QUERY_KEYS
+export default QUERY_KEYS;

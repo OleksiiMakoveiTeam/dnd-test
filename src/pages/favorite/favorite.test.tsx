@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import FavoritePage from './favorite'
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import FavoritePage from './favorite';
 
 jest.mock('src/components/drawer/drawer', () => ({
   __esModule: true,
   default: () => <div data-testid="mock-drawer" />,
-}))
+}));
 
 jest.mock('src/components/table/table', () => ({
   __esModule: true,
@@ -20,20 +20,20 @@ jest.mock('src/components/table/table', () => ({
       </tbody>
     </table>
   ),
-}))
+}));
 
 jest.mock('src/features/local-storage', () => ({
   __esModule: true,
   default: () => ({
     state: [
-      { name: 'Spell 1', index: '1', url: '/api/spells/1' },
-      { name: 'Spell 2', index: '2', url: '/api/spells/2' },
+      {name: 'Spell 1', index: '1', url: '/api/spells/1'},
+      {name: 'Spell 2', index: '2', url: '/api/spells/2'},
     ],
     saveLocalStorage: jest.fn(),
   }),
-}))
+}));
 
-jest.mock('src/components/spell-desctiprion/modal/spell-description-modal', () => ({
+jest.mock('src/features/components/spell-description/spell-description-modal', () => ({
   __esModule: true,
   default: (props: any) => (
     <div>
@@ -47,39 +47,39 @@ jest.mock('src/components/spell-desctiprion/modal/spell-description-modal', () =
       )}
     </div>
   ),
-}))
+}));
 
 describe('FavoritePage', () => {
   it('renders a table with the favorite spells data', () => {
-    render(<FavoritePage />)
-    const rows = screen.getAllByRole('row')
-    expect(rows.length).toBe(2)
-    expect(rows[0]).toHaveTextContent('Spell 1')
-    expect(rows[1]).toHaveTextContent('Spell 2')
-  })
+    render(<FavoritePage />);
+    const rows = screen.getAllByRole('row');
+    expect(rows.length).toBe(2);
+    expect(rows[0]).toHaveTextContent('Spell 1');
+    expect(rows[1]).toHaveTextContent('Spell 2');
+  });
 
   it('opens the spell description modal when clicking on a row', () => {
-    render(<FavoritePage />)
-    const rows = screen.getAllByRole('row')
-    userEvent.click(rows[0])
-    const modal = screen.getByTestId('mock-spell-description-modal')
-    expect(modal).toBeInTheDocument()
-    expect(modal).toHaveTextContent('Spell 1')
-  })
+    render(<FavoritePage />);
+    const rows = screen.getAllByRole('row');
+    userEvent.click(rows[0]);
+    const modal = screen.getByTestId('mock-spell-description-modal');
+    expect(modal).toBeInTheDocument();
+    expect(modal).toHaveTextContent('Spell 1');
+  });
 
   it('closes the spell description modal when clicking the Close button', () => {
-    render(<FavoritePage />)
-    const rows = screen.getAllByRole('row')
-    userEvent.click(rows[0])
-    const modal = screen.getByTestId('mock-spell-description-modal')
-    const closeButton = screen.getByText('Close')
-    userEvent.click(closeButton)
-    expect(modal).not.toBeInTheDocument()
-  })
+    render(<FavoritePage />);
+    const rows = screen.getAllByRole('row');
+    userEvent.click(rows[0]);
+    const modal = screen.getByTestId('mock-spell-description-modal');
+    const closeButton = screen.getByText('Close');
+    userEvent.click(closeButton);
+    expect(modal).not.toBeInTheDocument();
+  });
 
   it('renders a drawer', () => {
-    render(<FavoritePage />)
-    const drawer = screen.getByTestId('mock-drawer')
-    expect(drawer).toBeInTheDocument()
-  })
-})
+    render(<FavoritePage />);
+    const drawer = screen.getByTestId('mock-drawer');
+    expect(drawer).toBeInTheDocument();
+  });
+});
